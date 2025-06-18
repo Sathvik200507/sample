@@ -1,0 +1,32 @@
+
+.container {
+  max-width: 1177px;
+  padding: 0 1.5rem;
+  margin: 0 auto;
+}
+
+.stats {
+  background-color: #f8fbfd;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  text-align: center;
+  gap: 2rem;
+  max-width: 1177px;
+  margin: 3rem auto 0;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.green {
+  color: #16a34a;
+}
+.blue {
+  color: #2563eb;
+}
+.orange {
+  color: #f97316;
+}

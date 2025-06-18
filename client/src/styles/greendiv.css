@@ -1,0 +1,62 @@
+.ready {
+  background-color: #198754;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 4rem auto;
+  max-width: 1177px;         /* Match .stats width */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+.ready h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.ready p {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  line-height: 1.6;
+}
+
+.ready button {
+  background-color: #ffffff;
+  color: #16a34a;
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ready button:hover {
+  background-color: #f0fdf4;
+}
+
+/* Responsive (split screen) behavior */
+@media (min-width: 768px) {
+  .ready {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 90%; /* Optional: keeps it fluid with side spacing */
+  }
+  .ready h3 {
+    font-size: 2rem;
+  }
+
+  .ready p {
+    font-size: 1.25rem;
+  }
+
+  .ready button {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+  }
+}
+
