@@ -1,32 +1,34 @@
-import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import Footer from '../components/footer';
+import '../styles/register.css';
 
-export default function Register() {
-  const [form, setForm] = useState({ username: '', password: '' });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    alert(data.message);
-  };
-
+function Register() {
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Username"
-        onChange={(e) => setForm({ ...form, username: e.target.value })}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-      />
-      <button type="submit">Register</button>
-    </form>
+    <>
+      <Navbar btn1="About" btn2="Login" />
+      <div className="register-container">
+        <h2>Join VIVANDA</h2>
+        <p>Create your account to start making a difference in your community</p>
+        <form>
+          <label>Full Name</label>
+          <input type="text" placeholder="Full Name" required />
+
+          <label>Email</label>
+          <input type="email" placeholder="Email" required />
+
+          <label>Password</label>
+          <input type="password" placeholder="Password" required />
+
+          <label>Confirm Password</label>
+          <input type="password" placeholder="Confirm Password" required />
+
+          <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="/login">Sign in here</a></p>
+      </div>
+      <div id="#footer"><Footer /></div>
+    </>
   );
 }
+
+export default Register;

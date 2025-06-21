@@ -1,9 +1,19 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+    background: linear-gradient(to bottom, #f0fbf5, #e6f7ed);
+}
 /* Navbar styles */
 .navbar {
     width: 100%;
     background-color: #ffffff; /* Change to your preferred color */
     padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+    /* position:fixed; */
 }
 
 .nav-content {
@@ -50,6 +60,22 @@
     display: none;
     cursor: pointer;
     font-size: 1.5rem;
+}
+
+h3{
+    text-align: center;
+    font-size:xx-large;
+    font-weight: 800;
+}
+
+#storyofvivanda{
+  background-color: #ffffff;
+  padding: 40px;
+  margin: 50px auto;
+  max-width: 1200px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
 }
 
 /* Responsive styles */

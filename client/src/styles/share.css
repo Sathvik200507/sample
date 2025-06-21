@@ -1,6 +1,7 @@
 .share{
     padding: 10px;
-    padding-top: 50px;
+    /* padding-top: 50px; */
+    align-items: center;
 }
 
 h1{
@@ -26,7 +27,7 @@ h1{
 
 .share{
     width: 650px;
-    margin: auto;
+    margin:auto;
 }
 
 #button{

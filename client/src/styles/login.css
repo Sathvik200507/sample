@@ -1,11 +1,12 @@
 .login-container {
   background: #fff;
   padding: 30px;
-  max-width: 400px;
+  max-width: 450px;
   margin: 50px auto;
   border-radius: 12px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.1);
   text-align: center;
+  max-height: 400px;
 }
 
 .login-form {
@@ -15,6 +16,7 @@
 }
 
 .login-form input {
+  margin-top: 0%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -36,7 +38,7 @@
 }
 
 .signup-link {
-  margin-top: 10px;
+  margin-top: 5px;
   font-size: 14px;
 }
 
@@ -48,3 +50,18 @@
 .signup-link a:hover {
   text-decoration: underline;
 }
+
+label {
+  display: block;
+  text-align: left;
+
+  font-weight: 500; /* Optional for better visibility */
+}
+
+p{
+  margin:0%;
+}
+/* #footer{
+  padding:10px;
+  margin:auto;
+} */
