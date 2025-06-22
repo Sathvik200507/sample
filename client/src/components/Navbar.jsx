@@ -19,7 +19,11 @@ export default function Navbar({btn1,btn2,btn3}) {
                 </div>
 
                 <div className={`nav-buttons ${isMenuOpen ? 'open' : ''}`}>
-                    <Link to={`/${btn1.toLowerCase()}`}><MyButton btnName={btn1} className="btn btn-outline-secondary" /></Link>
+                  {btn1 && (
+                        <Link to={`/${btn1.toLowerCase()}`}>
+                        <MyButton btnName={btn1} className="btn btn-outline-secondary" />
+                        </Link>
+                    )}
                     {btn2 && (
                         <Link to="/login">
                         <MyButton btnName={btn2} className="btn btn-outline-secondary" />
@@ -30,7 +34,6 @@ export default function Navbar({btn1,btn2,btn3}) {
                         <MyButton btnName={btn3} className="btn btn-success" />
                         </Link>
                     )}
-                    {/* <Link to="/register"><MyButton btnName={btn3} className="btn btn-success" /></Link> */}
                 </div>
             </nav>
         </div>

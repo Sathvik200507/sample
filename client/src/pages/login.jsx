@@ -1,7 +1,8 @@
-import React from 'react';
 import '../styles/login.css'
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
+import MyButton from '../components/button';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -17,7 +18,7 @@ const Login = () => {
         <label>Password</label>
         <input type="password" placeholder="Enter your password" required />
 
-        <button type="submit" className="sign-in-btn">Sign In</button>
+        <Link to="/dashboard"><MyButton btnName={"Sign In"} className="sign-in-btn" /></Link>
       </form>
       <p className="signup-link">
         Don't have an account? <a href="#signup">Sign up here</a>
