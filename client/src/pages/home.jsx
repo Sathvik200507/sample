@@ -4,15 +4,18 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
 import Stats from "../components/landingstats";
 import GreenDiv from '../components/greendiv';
+import { Link } from 'react-router-dom';
+import '../styles/home.css'
 export default function Home() {
   return (
     <div>
       <Navbar btn1="About" btn2="Login" btn3="Register"/>
-      <Share
-       h1="Share Food, Share Hope"
-       p1="Join our mission to reduce food waste and fight hunger."
-       p2="Connect with those in need through our simple and secure platform."
-      />
+      <div id="homediv">
+      <Share title="Share Food, Share Hope" desc="Join our mission to reduce food waste and fight hunger.Connect with those in need through our simple and secure platform."/>
+      <Link to="/register">
+        <button id="button">Donate Now</button>
+      </Link>
+     </div>
       <Boxes/>
       <Stats/>
       <GreenDiv/>

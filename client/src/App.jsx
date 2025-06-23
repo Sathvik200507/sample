@@ -5,7 +5,7 @@ import Login from './pages/login';
 import Register from './pages/register';
 import Inform from './pages/inform';
 import Donate from './pages/donate';
-
+import DashBoard from './pages/dashboard';
 function App() {
   return (
     <>
@@ -18,6 +18,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/inform" element={<Inform />} />
             <Route path="/donate" element={<Donate />} />
+            <Route path="/dashboard" element={<DashBoard/>}/>
           </Routes>
         </BrowserRouter>
     </>
