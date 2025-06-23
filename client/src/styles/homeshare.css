@@ -1,0 +1,39 @@
+body{
+  background-color:#f8fef8;
+}
+.inform-wrapper {
+  max-width: 800px;
+  margin: 80px auto 0 auto; /* top margin pushes below navbar */
+  padding: 0 16px;
+  text-align: center;
+  background-color: #f8fef8; /* soft green background like your screenshot */
+}
+
+.inform-wrapper h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.inform-wrapper p {
+  font-size: 1.1rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .inform-wrapper {
+    padding: 1rem;
+    margin-top: 40px;
+  }
+
+  .inform-wrapper h2 {
+    font-size: 1.5rem;
+  }
+
+  .inform-wrapper p {
+    font-size: 1rem;
+  }
+}
