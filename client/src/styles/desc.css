@@ -1,0 +1,22 @@
+.desc-box {
+  margin-bottom: 20px;
+}
+
+.desc-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.desc-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
+  border: 1px solid #d1d5db; /* light gray border */
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  background-color: #fff;
+  color: #333;
+}

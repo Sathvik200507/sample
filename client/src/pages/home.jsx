@@ -12,11 +12,9 @@ export default function Home() {
       <Navbar btn1="About" btn2="Login" btn3="Register"/>
       <div id="homediv">
       <Share title="Share Food, Share Hope" desc="Join our mission to reduce food waste and fight hunger.Connect with those in need through our simple and secure platform."/>
-      {/* <div className="button-container"> */}
       <Link to="/register">
         <button id="button">Donate Now</button>
       </Link>
-     {/* </div> */}
      </div>
       <Boxes/>
       <Stats/>

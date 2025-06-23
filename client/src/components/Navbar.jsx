@@ -14,9 +14,9 @@ export default function Navbar({btn1,btn2,btn3}) {
                     <h4><strong>VIVANDA</strong></h4>
                 </div>
                 <div className="spacer" />
-                <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {(btn1 || btn2|| btn3) && <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     ☰
-                </div>
+                </div>}
 
                 <div className={`nav-buttons ${isMenuOpen ? 'open' : ''}`}>
                   {btn1 && (
@@ -25,12 +25,12 @@ export default function Navbar({btn1,btn2,btn3}) {
                         </Link>
                     )}
                     {btn2 && (
-                        <Link to="/login">
+                        <Link to={`/${btn2.toLowerCase()}`}>
                         <MyButton btnName={btn2} className="btn btn-outline-secondary" />
                         </Link>
                     )}
                     {btn3 && (
-                        <Link to="/register">
+                        <Link to={`/${btn3.toLowerCase()}`}>
                         <MyButton btnName={btn3} className="btn btn-success" />
                         </Link>
                     )}
