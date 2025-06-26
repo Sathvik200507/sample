@@ -1,0 +1,83 @@
+.order-wrapper,
+.payment-wrapper,
+.Address-Wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.Address-Wrapper {
+  padding: 32px;
+  max-width: 550px;
+  margin: 30px auto;
+  border-radius: 9px;
+  box-shadow: 0 0 0 1px #e4e4e7;
+  background-color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+}
+
+.Address-Wrapper h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.bill1,
+.bill2 > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bill1 span,
+.bill2 span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.bill1 input,
+.bill2 input {
+  padding: 12px;
+  border: 1px solid #e4e4e7;
+  border-radius: 8px;
+  background-color: white;
+  color: #111827;
+  font-size: 15px;
+}
+
+.bill2 input {
+  margin-bottom: 20px;
+}
+
+.bill1 input {
+  width: 100%;
+}
+
+/* Arrange city and pincode side by side */
+.bill2 {
+  display: flex;
+  gap: 16px;
+}
+
+.bill2 > div {
+  flex: 1;
+}
+
+@media (max-width: 480px) {
+  .Address-Wrapper {
+    padding: 24px;
+  }
+
+  .bill2 {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .bill2 input {
+    margin-bottom: 16px;
+  }
+}

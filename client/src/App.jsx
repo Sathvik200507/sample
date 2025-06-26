@@ -6,6 +6,7 @@ import Register from './pages/register';
 import Inform from './pages/inform';
 import Donate from './pages/donate';
 import DashBoard from './pages/dashboard';
+import Payment from './pages/payment';
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
             <Route path="/inform" element={<Inform />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/dashboard" element={<DashBoard/>}/>
+            <Route path="/payment" element={<Payment/>}/>       
           </Routes>
         </BrowserRouter>
     </>
