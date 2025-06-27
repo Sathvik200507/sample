@@ -1,0 +1,16 @@
+.shopItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* center-align items */
+  gap: 24px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* Optional: Reduce padding and gap on small screens */
+@media (max-width: 768px) {
+  .shopItems {
+    padding: 20px;
+    gap: 16px;
+  }
+}

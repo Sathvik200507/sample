@@ -1,6 +1,4 @@
 import "../styles/share.css";
-import { Link } from 'react-router-dom';
-import MyButton from './button.jsx';
 export default function Share({title,desc}){
     return(
         <div className="share">
