@@ -7,21 +7,24 @@ const cardData = [
     title: "Inform",
     description: "Get info on reducing food waste effectively.",
     color: "#4F8EF7",
-    buttonText: "Learn More"
+    buttonText: "Learn More",
+    link:"/inform"
   },
   {
     icon: "fa-solid fa-heart", // ❤️
     title: "Donate",
     description: "Help by donating excess food to the needy.",
     color: "#F75D59",
-    buttonText: "Start Donating"
+    buttonText: "Start Donating",
+    link:"/donate"
   },
   {
     icon: "fa-solid fa-bag-shopping", // 🛍️
     title: "Shop",
     description: "Buy discounted food items and save waste.",
     color: "#4CAF50",
-    buttonText: "Browse Shop"
+    buttonText: "Browse Shop",
+    link:"/shop"
   }
 ];
 
@@ -37,6 +40,7 @@ const CardList = () => {
           description={card.description}
           color={card.color}
           buttonText={card.buttonText}
+          link={card.link}
         />
       ))}
     </div>

@@ -1,10 +1,33 @@
 .shopItems {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* center-align items */
-  gap: 24px;
-  padding: 40px;
-  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 items on large screens */
+  padding: 24px;
+  justify-items: center;
+}
+
+@media (max-width: 992px) {
+  .shopItems {
+    grid-template-columns: repeat(2, 1fr); /* 2 items on medium (tablet) */
+  }
+}
+
+@media (max-width: 576px) {
+  .shopItems {
+    grid-template-columns: repeat(2, 1fr); /* 2 items on most mobile */
+  }
+}
+
+@media (max-width: 400px) {
+  .shopItems {
+    grid-template-columns: 1fr; /* 1 item on very small devices */
+  }
+}
+
+
+.shop-btns{
+  display:flex;
+  gap:20px;
+  justify-content: center;
 }
 
 /* Optional: Reduce padding and gap on small screens */

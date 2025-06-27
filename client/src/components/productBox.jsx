@@ -46,7 +46,7 @@ import '../styles/productBox.css'
 
 export default function productBox(props) {
   const {
-    category = 'Electronics',
+    category,
     image,
     title,
     desc,

@@ -6,11 +6,8 @@ import Register from './pages/register';
 import Inform from './pages/inform';
 import Donate from './pages/donate';
 import DashBoard from './pages/dashboard';
-<<<<<<< HEAD
 import Shop from './pages/shop';
-=======
 import Payment from './pages/payment';
->>>>>>> 0b3833dd6cf7abfcbf2f189846d7954ae21bc065
 function App() {
   return (
     <>
@@ -24,11 +21,8 @@ function App() {
             <Route path="/inform" element={<Inform />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/dashboard" element={<DashBoard/>}/>
-<<<<<<< HEAD
             <Route path="/shop" element={<Shop/>}/>
-=======
             <Route path="/payment" element={<Payment/>}/>       
->>>>>>> 0b3833dd6cf7abfcbf2f189846d7954ae21bc065
           </Routes>
         </BrowserRouter>
     </>

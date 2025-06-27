@@ -1,16 +1,42 @@
-<<<<<<< HEAD
 .share {
   width: 100%;
-  max-width: 700px;     /* Responsive upper bound */
+  max-width: 700px;
   padding: 20px;
-  margin: auto;
+  margin: 0 auto 20px auto; /* Center and add bottom margin */
   text-align: center;
   box-sizing: border-box;
-=======
-.share{
-    padding: 10px;
-    align-items: center;
->>>>>>> 0b3833dd6cf7abfcbf2f189846d7954ae21bc065
+}
+
+/* Tablet screens */
+@media (max-width: 768px) {
+  .share {
+    padding: 16px;
+    max-width: 90%;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  #p1 {
+    font-size: 1.1rem;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .share {
+    padding: 12px;
+    max-width: 95%;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  #p1 {
+    font-size: 1rem;
+  }
 }
 
 h1 {
@@ -25,24 +51,3 @@ h1 {
   margin: 0;
 }
 
-/* Medium screen adjustments */
-@media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  #p1 {
-    font-size: 1.1rem;
-  }
-}
-
-/* Small screen adjustments */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.6rem;
-  }
-
-  #p1 {
-    font-size: 1rem;
-  }
-}
