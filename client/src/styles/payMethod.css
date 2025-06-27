@@ -1,0 +1,80 @@
+.order-wrapper,
+.payment-wrapper,
+.Address-Wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.payment-wrapper {
+  background-color: #ffffff;
+  padding: 32px;
+  max-width: 550px;
+  margin: 30px auto;
+  border-radius: 9px;
+  box-shadow: 0 0 0 1px #e4e4e7;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.payment-heading {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 24px;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  border: 1px solid #e4e4e7;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  background-color: white;
+  transition: box-shadow 0.2s ease;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.payment-option:hover {
+  box-shadow: 0 0 0 2px #515251;
+}
+
+.payment-option input[type="radio"] {
+  width: 15px;
+  height: 15px;
+  accent-color: #1a56db;
+}
+
+.payment-option .icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+}
+
+.icon.blue {
+  background-color: #1a73e8;
+}
+
+.icon.purple {
+  background-color: #a142f4;
+}
+
+.icon.orange {
+  background-color: #f95c0d;
+}
+
+.icon.black {
+  background-color: #111827;
+}
+
+.payment-option span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111827;
+}

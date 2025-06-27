@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .share {
   width: 100%;
   max-width: 700px;     /* Responsive upper bound */
@@ -5,6 +6,11 @@
   margin: auto;
   text-align: center;
   box-sizing: border-box;
+=======
+.share{
+    padding: 10px;
+    align-items: center;
+>>>>>>> 0b3833dd6cf7abfcbf2f189846d7954ae21bc065
 }
 
 h1 {

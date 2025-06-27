@@ -5,7 +5,7 @@ html, body {
 }
 
 body{
-    background: linear-gradient(to bottom, #f0fbf5, #e6f7ed);
+    background: #f0fbf5;
 }
 /* Navbar styles */
 .navbar {
