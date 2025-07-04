@@ -75,8 +75,8 @@ export default function productBox(props) {
       </div>
 
       <div className="product-price">
-        <span className="offer-price">${offerPrice.toFixed(2)}</span>
-        <span className="actual-price">${price.toFixed(2)}</span>
+        <span className="offer-price">&#8377;{offerPrice.toFixed(2)}</span>
+        <span className="actual-price">&#8377;{price.toFixed(2)}</span>
       </div>
 
       <div className="points-box">
@@ -86,12 +86,12 @@ export default function productBox(props) {
           <span className="points-value">{points} pts</span>
         </div>
         <div className="final-price-row">
-          <span>Final Price: <span className="final-price">${finalPrice.toFixed(2)}</span></span>
+          <span>Final Price: <span className="final-price">&#8377;{finalPrice.toFixed(2)}</span></span>
         </div>
       </div>
 
-      <button className="add-to-cart-btn">Add to Cart - ${offerPrice.toFixed(2)}</button>
-      <button className="use-points-btn">Use Points - ${finalPrice.toFixed(2)}</button>
+      <button className="add-to-cart-btn">Add to Cart - &#8377;{offerPrice.toFixed(2)}</button>
+      <button className="use-points-btn">Use Points - &#8377;{finalPrice.toFixed(2)}</button>
     </div>
   );
 }

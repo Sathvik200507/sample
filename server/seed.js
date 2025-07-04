@@ -6,11 +6,12 @@ const { User } = require('./models/user');
 
 const sampleUsers = [
   {
+    userName:"alicejohn",
     fullName: "Alice Johnson",
     gender: "Female",
     email: "alice@example.com",
     contactNumber: "9876543210",
-    password: "$2b$10$abcde12345abcde12345ab.AAAAAABBBBBBCCCCCDDDDD",
+    password: "alice123",
     address: "123 Main Street, City A",
     type: "household",
     points: 120,
@@ -25,14 +26,23 @@ const sampleUsers = [
       { name: "Dairy Products", value: 20 },
       { name: "Foods", value: 10 }
     ],
+    monthlyActivity: [
+      { month: "Jan", donations: 1, points: 150 },
+      { month: "Feb", donations: 2, points: 230 },
+      { month: "Mar", donations: 1, points: 280 },
+      { month: "Apr", donations: 3, points: 260 },
+      { month: "May", donations: 2, points: 240 },
+      { month: "Jun", donations: 13, points: 650 }
+    ],
     memberSince: new Date("2023-01-10")
   },
   {
+    userName:"bobsmith",
     fullName: "Bob Smith",
     gender: "Male",
     email: "bob@example.com",
     contactNumber: "9123456780",
-    password: "$2b$10$abcde12345abcde12345ab.FFFFFFGGGGGGHHHHHH",
+    password: "bob123",
     address: "45 Cross Road, City B",
     type: "restaurant",
     points: 80,
@@ -46,14 +56,23 @@ const sampleUsers = [
       { name: "Dairy Products", value: 10 },
       { name: "Fresh Produce", value: 10 }
     ],
+    monthlyActivity: [
+      { month: "Jan", donations: 1, points: 150 },
+      { month: "Feb", donations: 2, points: 230 },
+      { month: "Mar", donations: 1, points: 280 },
+      { month: "Apr", donations: 3, points: 260 },
+      { month: "May", donations: 2, points: 240 },
+      { month: "Jun", donations: 13, points: 650 }
+    ],
     memberSince: new Date("2023-03-15")
   },
   {
+    userName:"charlied",
     fullName: "Charlie Davis",
     gender: "Male",
     email: "charlie@example.com",
     contactNumber: "9988776655",
-    password: "$2b$10$abcde12345abcde12345ab.ZZZZZZYYYYYYXXXXXX",
+    password: "charlie123",
     address: "89 Hill Street, City C",
     type: "organisation",
     points: 250,
@@ -67,14 +86,23 @@ const sampleUsers = [
       { name: "Fresh Produce", value: 5 },
       { name: "Dairy Products", value: 5 }
     ],
+    monthlyActivity: [
+      { month: "Jan", donations: 1, points: 150 },
+      { month: "Feb", donations: 2, points: 230 },
+      { month: "Mar", donations: 1, points: 280 },
+      { month: "Apr", donations: 3, points: 260 },
+      { month: "May", donations: 2, points: 240 },
+      { month: "Jun", donations: 13, points: 650 }
+    ],
     memberSince: new Date("2024-06-05")
   },
   {
+    userName:"dianag",
     fullName: "Diana Green",
     gender: "Female",
     email: "diana@example.com",
     contactNumber: "9090909090",
-    password: "$2b$10$abcde12345abcde12345ab.QQQQQQRRRRRRSSSSSS",
+    password: "diana123",
     address: "23 Lake View, City D",
     type: "household",
     points: 45,
@@ -88,14 +116,23 @@ const sampleUsers = [
       { name: "Prepared Meals", value: 0 },
       { name: "Dairy Products", value: 0 }
     ],
+    monthlyActivity: [
+      { month: "Jan", donations: 1, points: 150 },
+      { month: "Feb", donations: 2, points: 230 },
+      { month: "Mar", donations: 1, points: 280 },
+      { month: "Apr", donations: 3, points: 260 },
+      { month: "May", donations: 2, points: 240 },
+      { month: "Jun", donations: 13, points: 650 }
+    ],
     memberSince: new Date("2024-10-20")
   },
   {
+    userName: "ethanray",
     fullName: "Ethan Ray",
     gender: "Male",
     email: "ethan@example.com",
     contactNumber: "9876501234",
-    password: "$2b$10$abcde12345abcde12345ab.TTTTTTUUUUUUVVVVVV",
+    password: "ethan123",
     address: "77 Palm Road, City E",
     type: "organisation",
     points: 300,
@@ -109,6 +146,14 @@ const sampleUsers = [
       { name: "Foods", value: 10 },
       { name: "Fresh Produce", value: 5 }
     ],
+    monthlyActivity: [
+      { month: "Jan", donations: 1, points: 150 },
+      { month: "Feb", donations: 2, points: 230 },
+      { month: "Mar", donations: 1, points: 280 },
+      { month: "Apr", donations: 3, points: 260 },
+      { month: "May", donations: 2, points: 240 },
+      { month: "Jun", donations: 13, points: 650 }
+    ],
     memberSince: new Date("2025-01-15")
   }
 ];
@@ -118,7 +163,7 @@ async function seedData() {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to cloud MongoDB");
 
-    // await DonationPercentages.deleteMany(); // Optional: clear existing
+    await User.deleteMany(); // Optional: clear existing
     await User.insertMany(sampleUsers);
 
     console.log("Sample data inserted into cloud DB.");

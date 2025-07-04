@@ -37,15 +37,13 @@ const { User } = require("./models/user");
 //Routes
 //Landing Page
 app.get('/', async (req, res) => {
-  console.log("GET /profile hit");
   res.sendFile(path.join(__dirname, '../client/dist', 'index.html')); // All GET requests that aren't handled by API routes return the React app
 });
 
 //Profile page
 app.get("/profile", async (req, res) => {
-  console.log("GET /profile hit");
   try {
-    const data = await DonationPercentages.find({});
+    const data = await User.findOne({fullName:"Bob Smith"});
     res.json(data);
   } catch (error) {
     console.error("Error fetching donation data:", error);

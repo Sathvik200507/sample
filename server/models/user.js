@@ -11,6 +11,13 @@ const donationTypeSchema = new mongoose.Schema({
   value: Number
 });
 
+const monthlyActivitySchema = new mongoose.Schema({
+  month: { type: String, required: true },
+  donations: { type: Number, required: true },
+  points: { type: Number, required: true }
+});
+
+
 const userSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
   gender: { type: String, enum: ["Male", "Female", "Other"], required: true },
@@ -23,7 +30,9 @@ const userSchema = new mongoose.Schema({
   totalDonations: { type: Number, default: 0 },
   recentDonations: [donationItemSchema],
   donationPercentages: [donationTypeSchema],
-  memberSince: { type: Date, default: Date.now }
+  memberSince: { type: Date, default: Date.now },
+  monthlyActivity: [monthlyActivitySchema],
+  userName:{type:String,required: true}
 });
 
 const User = mongoose.model("User", userSchema);
