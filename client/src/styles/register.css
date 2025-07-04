@@ -65,3 +65,25 @@ label {
 #footer{
     margin-top:30px;
 }
+
+.register-container select {
+    width: 100%;
+    padding: 12px 10px;
+    margin-bottom: 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    outline: none;
+    background-color: white;
+    color: #333;
+    font-size: 1rem;
+    transition: border 0.3s;
+    appearance: none; /* Optional: hides default arrow in some browsers */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'%3E%3Cpath%20fill='%2300a86b'%20d='M2%205L0%200h4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+}
+
+.register-container select:focus {
+    border-color: #00a86b;
+}
