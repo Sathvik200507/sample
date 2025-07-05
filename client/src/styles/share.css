@@ -1,10 +1,7 @@
-.share {
-  width: 100%;
-  max-width: 700px;
-  padding: 20px;
-  margin: 0 auto 20px auto; /* Center and add bottom margin */
-  text-align: center;
-  box-sizing: border-box;
+.share{
+    background-color: #f0fbf5;
+    padding: 10px;
+    align-items: center;
 }
 
 /* Tablet screens */

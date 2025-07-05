@@ -51,5 +51,44 @@ app.get("/profile", async (req, res) => {
   }
 });
 
+//Login verification
+
+app.post("/login",async(req,res)=>{
+  const {username,password}=req.body;
+  const user=await User.findOne({userName:username,password:password});
+  if(user){
+      console.log("success");
+      res.json({"success":true});
+  }
+  else{
+      console.log("failure");
+      res.json({"success":false});
+  }
+});
+
+//Registration
+
+app.post("/register",async(req,res)=>{
+  const {info}=req.body;
+  if(info.password!==info.confirmPassword){
+    return res.json({success:false,msg:"pwd"});
+  }
+  let user=await User.findOne({userName:info.userName});
+  if(user){
+    return res.json({success:false,msg:"user"});
+  }
+  const newUser=new User({
+    userName: info.userName,
+    fullName: info.fullName,
+    gender: info.gender,
+    email: info.email,
+    contactNumber: info.contactNumber,
+    password: info.password,
+    address: info.address,
+    type: info.type,
+  });
+  await newUser.save();
+  return res.json({success:true,msg:"Registration Successfull!"});
+});
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));

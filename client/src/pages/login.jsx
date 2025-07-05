@@ -1,24 +1,57 @@
-import '../styles/login.css'
+import '../styles/login.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/footer';
 import MyButton from '../components/button';
 import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate=useNavigate();
+  let [login,setLogin]=useState({
+    username:"",
+    password:""
+  });
+
+  const updateDetails=(event)=>{
+    setLogin((curr)=>{
+      return {...curr,[event.target.name]:event.target.value};
+    });
+  };
+
+  const handleSubmit=async(event)=>{
+    event.preventDefault();
+    const response=await fetch("http://localhost:5000/login",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body: JSON.stringify(login)
+    });
+    const result=await response.json();
+    if(result.success)
+      navigate("/dashboard");
+    else{
+      alert("Invalid Username or Password");
+      setLogin({
+        username:"",
+        password:""
+      });
+    }
+  };
+
   return (
     <>
     <Navbar btn1="About" btn3="Register"/>
     <div className="login-container">
       <h2>Welcome Back</h2>
       <p>Sign in to your account to continue sharing and requesting food</p>
-      <form className="login-form">
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required />
+      <form className="login-form" onSubmit={handleSubmit}>
+        <label>Username</label>
+        <input type="text" placeholder="Enter your email" name="username" value={login.username} onChange={updateDetails} required />
 
         <label>Password</label>
-        <input type="password" placeholder="Enter your password" required />
+        <input type="password" placeholder="Enter your password" name="password" value={login.password} onChange={updateDetails} required />
 
-        <Link to="/dashboard"><MyButton btnName={"Sign In"} className="sign-in-btn" /></Link>
+        <MyButton btnName={"Sign In"} className="sign-in-btn" />
       </form>
       <p className="signup-link">
         Don't have an account? <a href="#signup">Sign up here</a>
