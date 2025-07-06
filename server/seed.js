@@ -34,7 +34,14 @@ const sampleUsers = [
       { month: "May", donations: 2, points: 240 },
       { month: "Jun", donations: 13, points: 650 }
     ],
-    memberSince: new Date("2023-01-10")
+    memberSince: new Date("2023-01-10"),
+    badges:[
+      { title: "First Donation", desc: "Made your first food donation", earned: true,},
+      {title: "Community Helper",desc: "Completed 10 donations",earned: true,},
+      {title: "Food Hero",desc: "Completed 25 donations",earned: true,},
+      {title: "Waste Warrior",desc: "Prevented 100lbs of food waste",earned: false,},
+      {title: "Monthly Champion",desc: "Top donor of the month",earned: false,},
+    ]
   },
   {
     userName:"bobsmith",
@@ -64,7 +71,14 @@ const sampleUsers = [
       { month: "May", donations: 2, points: 240 },
       { month: "Jun", donations: 13, points: 650 }
     ],
-    memberSince: new Date("2023-03-15")
+    memberSince: new Date("2023-03-15"),
+    badges:[
+      { title: "First Donation", desc: "Made your first food donation", earned: true,},
+      {title: "Community Helper",desc: "Completed 10 donations",earned: true,},
+      {title: "Food Hero",desc: "Completed 25 donations",earned: true,},
+      {title: "Waste Warrior",desc: "Prevented 100lbs of food waste",earned: false,},
+      {title: "Monthly Champion",desc: "Top donor of the month",earned: false,},
+    ]
   },
   {
     userName:"charlied",
@@ -94,7 +108,14 @@ const sampleUsers = [
       { month: "May", donations: 2, points: 240 },
       { month: "Jun", donations: 13, points: 650 }
     ],
-    memberSince: new Date("2024-06-05")
+    memberSince: new Date("2024-06-05"),
+    badges:[
+      { title: "First Donation", desc: "Made your first food donation", earned: true,},
+      {title: "Community Helper",desc: "Completed 10 donations",earned: true,},
+      {title: "Food Hero",desc: "Completed 25 donations",earned: true,},
+      {title: "Waste Warrior",desc: "Prevented 100lbs of food waste",earned: false,},
+      {title: "Monthly Champion",desc: "Top donor of the month",earned: false,},
+    ]
   },
   {
     userName:"dianag",
@@ -124,7 +145,14 @@ const sampleUsers = [
       { month: "May", donations: 2, points: 240 },
       { month: "Jun", donations: 13, points: 650 }
     ],
-    memberSince: new Date("2024-10-20")
+    memberSince: new Date("2024-10-20"),
+    badges:[
+      { title: "First Donation", desc: "Made your first food donation", earned: true,},
+      {title: "Community Helper",desc: "Completed 10 donations",earned: true,},
+      {title: "Food Hero",desc: "Completed 25 donations",earned: true,},
+      {title: "Waste Warrior",desc: "Prevented 100lbs of food waste",earned: false,},
+      {title: "Monthly Champion",desc: "Top donor of the month",earned: false,},
+    ]
   },
   {
     userName: "ethanray",
@@ -154,7 +182,14 @@ const sampleUsers = [
       { month: "May", donations: 2, points: 240 },
       { month: "Jun", donations: 13, points: 650 }
     ],
-    memberSince: new Date("2025-01-15")
+    memberSince: new Date("2025-01-15"),
+    badges:[
+      { title: "First Donation", desc: "Made your first food donation", earned: true,},
+      {title: "Community Helper",desc: "Completed 10 donations",earned: true,},
+      {title: "Food Hero",desc: "Completed 25 donations",earned: true,},
+      {title: "Waste Warrior",desc: "Prevented 100lbs of food waste",earned: false,},
+      {title: "Monthly Champion",desc: "Top donor of the month",earned: false,},
+    ]
   }
 ];
 

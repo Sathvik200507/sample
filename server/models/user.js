@@ -17,6 +17,12 @@ const monthlyActivitySchema = new mongoose.Schema({
   points: { type: Number, required: true }
 });
 
+const badgesSchema = new mongoose.Schema({
+  title:{type:String},
+  desc:{typr:String},
+  earned:{type:Boolean}
+});
+
 
 const userSchema = new mongoose.Schema({
   userName:{ type: String, required: true },
@@ -29,11 +35,12 @@ const userSchema = new mongoose.Schema({
   type: { type: String, enum: ["household", "restaurant", "organisation"], required: true },
   points: { type: Number, default: 0 },
   totalDonations: { type: Number, default: 0 },
+  impactLevel:{type:String},
   recentDonations: [donationItemSchema],
   donationPercentages: [donationTypeSchema],
   memberSince: { type: Date, default: Date.now },
   monthlyActivity: [monthlyActivitySchema],
-  userName:{type:String,required: true}
+  badges:[badgesSchema]
 });
 
 const User = mongoose.model("User", userSchema);
