@@ -13,5 +13,4 @@
 
   const Inform = mongoose.model("Inform", informSchema);
 
-
   module.exports = { Inform };   // export both models if in the same file

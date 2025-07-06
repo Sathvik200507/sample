@@ -15,7 +15,7 @@ export default function Achievements({ badges }) {
               <span role="img" aria-label="medal">🎖️</span>
             </div>
             <div>
-              <h4>{badge.title}</h4>
+              <h6>{badge.title}</h6>
               <p>{badge.desc}</p>
             </div>
           </div>

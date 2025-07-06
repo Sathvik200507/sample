@@ -36,9 +36,16 @@
 .chart-container,
 .bargraph-container {
   flex: 1;
-  min-width: 280px;
-  max-width: 400px;
+  min-width: 350px;
+  max-width: 500px;
   text-align: center;
+  align-items: center;
+}
+
+.chart-container h3,.bargraph-container h3{
+    font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 /* Bottom row: Stats + Achievements */
@@ -67,6 +74,13 @@
   flex: 2;
   min-width: 320px;
 }
+
+.recent-donations{
+  display:flex;
+  flex-direction: row;
+  justify-content:end;
+}
+
 
 /* Profile Styling */
 .profile-image-container {
@@ -120,7 +134,7 @@
 
 /* Quick Stats */
 .quick-stats-card h3 {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 16px;
 }
 

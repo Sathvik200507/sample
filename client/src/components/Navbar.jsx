@@ -5,13 +5,28 @@ import "../App.css";
 
 export default function Navbar({btn1,btn2,btn3}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+      const handleLogout = () => {
+    fetch("http://localhost:5000/logout", {
+      method: "GET",
+      credentials: "include", // ✅ required for session cookie
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          navigate("/home"); // ✅ client-side redirect
+        }
+      })
+      .catch((err) => console.error("Logout failed", err));
+  };
+
+
 
     return (
         <div className="navbar">
             <nav className="nav-content">
                 <div className="logo">
-                    <i className="fa-regular fa-heart"></i>
-                    <h4><strong>VIVANDA</strong></h4>
+                    <i class="fa-solid fa-plate-wheat"></i>
+                    <h4><strong>RePlato</strong></h4>
                 </div>
                 <div className="spacer" />
                 {(btn1 || btn2|| btn3) && <div className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
@@ -30,9 +45,17 @@ export default function Navbar({btn1,btn2,btn3}) {
                         </Link>
                     )}
                     {btn3 && (
+                    btn3.toLowerCase() === "logout" ? (
+                        <MyButton
+                        btnName={btn3}
+                        className="btn btn-success"
+                        onClick={handleLogout}
+                        />
+                    ) : (
                         <Link to={`/${btn3.toLowerCase()}`}>
                         <MyButton btnName={btn3} className="btn btn-success" />
                         </Link>
+                    )
                     )}
                 </div>
             </nav>

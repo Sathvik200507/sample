@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const donationItemSchema = new mongoose.Schema({
   item: String,
   description: String,
-  time: String // e.g. "2 days ago"
+  time: String,
+  ptsEarned: Number
 });
 
 const donationTypeSchema = new mongoose.Schema({
@@ -19,7 +20,7 @@ const monthlyActivitySchema = new mongoose.Schema({
 
 const badgesSchema = new mongoose.Schema({
   title:{type:String},
-  desc:{typr:String},
+  desc:{type:String},
   earned:{type:Boolean}
 });
 

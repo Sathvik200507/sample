@@ -20,24 +20,27 @@ const Login = () => {
     });
   };
 
-  const handleSubmit=async(event)=>{
-    event.preventDefault();
-    const response=await fetch("http://localhost:5000/login",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(login)
+ const handleSubmit = async (event) => {
+  event.preventDefault();
+  const response = await fetch("http://localhost:5000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include", // ✅ sends cookies to backend
+    body: JSON.stringify(login)
+  });
+
+  const result = await response.json();
+  if (result.success) {
+    navigate("/dashboard");
+  } else {
+    alert("Invalid Username or Password");
+    setLogin({
+      userName: "",
+      password: ""
     });
-    const result=await response.json();
-    if(result.success)
-      navigate("/dashboard");
-    else{
-      alert("Invalid Username or Password");
-      setLogin({
-        userName:"",
-        password:""
-      });
-    }
-  };
+  }
+};
+
 
   return (
     <>

@@ -35,7 +35,7 @@ function Register() {
     const result=await response.json();
     if(result.success){
       alert(result.msg);
-      navigate("/dashboard");
+      navigate("/login");
     }
 
     else if(result.msg==="pwd"){

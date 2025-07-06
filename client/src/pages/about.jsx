@@ -9,8 +9,8 @@ export default function About() {
   return(
     <div>
       <Navbar btn1="Home" btn2="Login" btn3="Register"/>
-      <Share title="About VIVANDA" desc="We're on a mission to create a world where no food goes to waste and no person goes hungry.
-      VIVANDA connects communities, reduces waste, and spreads hope one meal at a time."/>
+      <Share title="About RePlato" desc="We're on a mission to create a world where no food goes to waste and no person goes hungry.
+      RePlato connects communities, reduces waste, and spreads hope one meal at a time."/>
       <div className="boxes">
       <Box
       name="fa-solid fa-rocket"
@@ -45,8 +45,8 @@ export default function About() {
       </div>
       <div id="story">
         <div id="storyofvivanda">
-          <h3>Story of VIVANDA</h3>
-        <p>VIVANDA was born from a simple observation: while millions of people struggle with food insecurity, 
+          <h3>Story of Replato</h3>
+        <p>Replato was born from a simple observation: while millions of people struggle with food insecurity, 
           tons of perfectly good food are wasted every day. We saw restaurants closing with surplus meals, families 
           with extra groceries, and community members who didn't know where their next meal would come from.</p><br/>
           <p>Founded 

@@ -8,7 +8,7 @@ import '../App.css';
 const App = () => {
   return (
     <div >
-      <Navbar btn1="" btn2="" btn3="" />
+      <Navbar btn1="About" btn2="Shop" btn3="Profile" />
       <br/><br/>
       <div className="body">
       <h1 style={{ textAlign: 'center', marginTop: '5px' }}>Together We Can End Food Waste</h1>
