@@ -1,5 +1,5 @@
 import "../styles/desc.css";
-export default function DescBox({name,placeholder}){
+export default function DescBox({onChange,value,name,placeholder}){
     return (
         <div className="desc-box">
             <label className="desc-label">{name}</label>

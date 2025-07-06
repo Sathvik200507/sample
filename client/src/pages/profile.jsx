@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import ProfileBox from '../components/ProfileBox';
 import NavBar from '../components/Navbar';
 import PieChartBox from '../components/PieChartBox';
