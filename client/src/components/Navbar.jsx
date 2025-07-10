@@ -6,6 +6,7 @@ import "../App.css";
 export default function Navbar({btn1,btn2,btn3}) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
       const handleLogout = () => {
+        console.log("/logout hit");
     fetch("http://localhost:5000/logout", {
       method: "GET",
       credentials: "include", // ✅ required for session cookie

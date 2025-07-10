@@ -8,6 +8,7 @@ const sampleUsers = [
   {
     userName: "alicejohn",
     fullName: "Alice Johnson",
+    photo:"/uploads/myphoto.jpg",
     gender: "Female",
     email: "alice@example.com",
     contactNumber: "9876543210",
@@ -49,6 +50,7 @@ const sampleUsers = [
   {
     userName: "bobsmith",
     fullName: "Bob Smith",
+    photo:"",
     gender: "Male",
     email: "bob@example.com",
     contactNumber: "9123456780",
@@ -87,6 +89,7 @@ const sampleUsers = [
   {
     userName: "charliedavis",
     fullName: "Charlie Davis",
+    photo:"",
     gender: "Male",
     email: "charlie@example.com",
     contactNumber: "9988776655",
@@ -125,6 +128,7 @@ const sampleUsers = [
   {
     userName:"dianagreen",
     fullName: "Diana Green",
+    photo:"",
     gender: "Female",
     email: "diana@example.com",
     contactNumber: "9090909090",
@@ -163,6 +167,7 @@ const sampleUsers = [
   {
     userName: "ethanray",
     fullName: "Ethan Ray",
+    photo:"",
     gender: "Male",
     email: "ethan@example.com",
     contactNumber: "9876501234",

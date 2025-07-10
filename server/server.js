@@ -11,6 +11,8 @@ const MongoStore = require("connect-mongo");
        
 app.use(express.json({ limit: '50mb' })); // for JSON
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use('/uploads', express.static('public/uploads'));
+
 
 app.use(
   session({
@@ -90,11 +92,11 @@ app.post("/login",async(req,res)=>{
 //Registration
 
 app.post("/register",async(req,res)=>{
-  console.log(req.body);
-  const {info}=req.body;
-  if(info.password!==info.confirmPassword){
-    return res.json({success:false,msg:"pwd"});
-  }
+  // console.log(req.body);
+  // const {info}=req.body;
+  // if(info.password!==info.confirmPassword){
+  //   return res.json({success:false,msg:"pwd"});
+  // }
   let user=await User.findOne({userName:info.userName});
   if(user){
     return res.json({success:false,msg:"user"});
@@ -115,12 +117,12 @@ app.post("/register",async(req,res)=>{
 
 //Profile page
 app.get("/profile", async (req, res) => {
-    if (!req.session.userId) {
-    return res.status(401).json({ 
-      success: false,
-      message: "Login to view your profile" 
-    });
-  }
+  //   if (!req.session.userId) {
+  //   return res.status(401).json({ 
+  //     success: false,
+  //     message: "Login to view your profile" 
+  //   });
+  // }
   try {
     const data = await User.findById(req.session.userId);
     res.json(data);
@@ -134,12 +136,12 @@ app.get("/profile", async (req, res) => {
 // donation
 // server.js (excerpt)
 app.post("/donate", async (req, res) => {
-    if (!req.session.userId) {
-    return res.status(401).json({ 
-      success: false,
-      message: "Login to Donate" 
-    });
-  }
+  //   if (!req.session.userId) {
+  //   return res.status(401).json({ 
+  //     success: false,
+  //     message: "Login to Donate" 
+  //   });
+  // }
   try {
     // req.body.info already matches the schema 1-to-1
     const doc = await Donate.create(req.body.info);
@@ -151,12 +153,12 @@ app.post("/donate", async (req, res) => {
 });
 
 app.post("/inform",async(req,res)=>{
-    if (!req.session.userId) {
-    return res.status(401).json({ 
-      success: false,
-      message: "Login to Inform" 
-    });
-  }
+  //   if (!req.session.userId) {
+  //   return res.status(401).json({ 
+  //     success: false,
+  //     message: "Login to Inform" 
+  //   });
+  // }
   try{
     const doc = await Inform.create(req.body.info);
      res.json({ success: true, msg: "Inform saved!", id: doc._id });
@@ -167,7 +169,6 @@ app.post("/inform",async(req,res)=>{
 });
 
 app.get("/logout", (req, res) => {
-  console.log("/logout hit");
   req.session.destroy((err) => {
     if (err) {
       return res.status(500).json({ success: false, message: "Logout failed" });

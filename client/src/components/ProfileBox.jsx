@@ -5,7 +5,11 @@ export default function ProfileBox({ user }) {
   return (
     <div className="profile-box">
       <div className="profile-image-container">
-        <img src="../../public/assets/myphoto.jpg" alt="Profile" className="profile-image" />
+        <img
+          src={`http://localhost:5000${user.photo}`} 
+          alt="Profile" 
+          className="profile-image"
+        />
         <button className="edit-button">
           <span><i class="fa-solid fa-pen"></i></span>
         </button>
