@@ -14,7 +14,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // change to a strong secret and store in .env
+    secret: "hello12", // change to a strong secret and store in .env
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -62,8 +62,9 @@ mongoose.connect(process.env.MONGO_URI)
 // use seed.js to export data to cloud
 const { User } = require("./models/user");
 const { Donate } = require("./models/donate"); 
-const {Inform} =require("./models/inform");
-
+const { Inform } =require("./models/inform");
+const Product =require("./models/products");
+const Cart=require("./models/cart");
 
 //Routes
 //Landing Page
@@ -178,7 +179,21 @@ app.get("/logout", (req, res) => {
 });
 
 
+//shop
+app.get("/shop",async(req,res)=>{
+  let products=await Product.find({});
+  res.json(products);
+});
 
-
+//add-to-cart
+app.post("/cart",async(req,res)=>{
+  let {pid,option}=req.body;
+  const newItem=new Cart({pid,option});
+  await newItem.save();
+  const product=await Product.findOne({_id:pid});
+  let title=product.title;
+  let price=(option==="nrml")?product.price:product.finalPrice;
+  return res.json({success:true,title,price});
+});
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));
