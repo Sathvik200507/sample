@@ -27,6 +27,7 @@ export default function shop(){
                 <MyButton btnName="Coupons" className="btn btn-outline-secondary"/>
             </div>
             <div className='shopItems'>
+
             {products.map((product, index) => (
             <ProductBox key={index} {...product} />
             ))}
