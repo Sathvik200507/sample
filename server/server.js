@@ -86,8 +86,9 @@ mongoose.connect(process.env.MONGO_URI)
 // use seed.js to export data to cloud
 const { User } = require("./models/user");
 const { Donate } = require("./models/donate"); 
-const {Inform} =require("./models/inform");
-
+const { Inform } =require("./models/inform");
+const Product =require("./models/products");
+const Cart=require("./models/cart");
 
 //Routes
 //Landing Page
@@ -202,6 +203,12 @@ app.get("/logout", (req, res) => {
 });
 
 
+
+//shop
+app.get("/shop",async(req,res)=>{
+  let products=await Product.find({});
+  res.json(products);
+
 // add after other routes in server/server.js
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;   // set via Stripe CLI
 
@@ -223,6 +230,15 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
   res.json({ received: true });
 });
 
-
+//add-to-cart
+app.post("/cart",async(req,res)=>{
+  let {pid,option}=req.body;
+  const newItem=new Cart({pid,option});
+  await newItem.save();
+  const product=await Product.findOne({_id:pid});
+  let title=product.title;
+  let price=(option==="nrml")?product.price:product.finalPrice;
+  return res.json({success:true,title,price});
+});
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));

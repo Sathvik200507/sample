@@ -1,65 +1,32 @@
-// import '../styles/productBox.css'
-// export default function productBox(props){
-//     const {image,title,desc}=props;
-//     return(
-//         <div id="productbox">
-//             <div id="productImage">
-//             <img src={image} alt="Product Image"/>
-//             </div>
-//             <br/>
-//             <div id="title">
-//                 <h4>{title}</h4>
-//             </div>
-//             <div id="description">{desc}</div>
-//             <div id="ratings">
-//                 <div id="icon">
-//                     <i className="fa-solid fa-star" style={{color: '#FFD43B'}}></i>
-//                 </div>
-//                 <div id="number">
-//                     <b>4.5</b> 
-//                 </div>
-//                 <div id="reviews">
-//                     <p>(243 reviews)</p>
-//                 </div>
-//             </div>
-//             <div id="price">
-//                 <div id="discounted"><strong>&#8377;799</strong></div>
-//                 <div id="original"><s>&#8377;1499</s></div>
-//             </div>
-//             <div id="prodDesc">
-//             <div id="usePoints">
-//                 <span><i className="fa-solid fa-tag" style={{color:'#1291f3'}}></i><small id="text">Use Points</small>< small id="points">500pts</small></span><br/>
-//                 <span>Final Price:</span><strong id="finalPrice"> &#8377;699</strong>
-//             </div>
-//                 <div>
-//                     <button id="noPointsbtn">Add to Cart-&#8377;799</button>
-//                 </div>
-//                 <div>
-//                     <button id="pointsBtn">Use Points-&#8377;699</button>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// }
+import '../styles/productBox.css';
+//import { useNavigate } from "react-router-dom";
+export default function ProductBox(props) {
+  //const navigate=useNavigate();
+  const addCart=async({_id,option})=>{
+    const res=await fetch("http://localhost:5000/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({pid:_id,option:option})
+    });
+    const data=await res.json();
+    /*if(data.success)
+      navigate("/CartSummary",{state:{title:data.title,price:data.price}});*/
+  };
 
-import '../styles/productBox.css'
-import { useCart } from '../components/context/cardContext'
-
-export default function productBox(props) {
-   const { addToCart } = useCart();
-   const {
-      id, category, image, title, desc,
-      offerPrice, price, points, finalPrice,
-      rating, reviews
-    } = props;
-
-     const handleAdd = () => {
-      addToCart({
-        id,
-        name: title,
-        price: offerPrice,
-      });
-    };
+  const {
+    _id,
+    category,
+    image,
+    title,
+    desc,
+    rating,
+    reviews,
+    price,
+    offerPrice,
+    points,
+    finalPrice
+  } = props;
 
   return (
     <div className="product-card">
@@ -93,8 +60,8 @@ export default function productBox(props) {
         </div>
       </div>
 
-      <button className="add-to-cart-btn" onClick={handleAdd}>Add to Cart - &#8377;{offerPrice.toFixed(2)}</button>
-      <button className="use-points-btn">Use Points - &#8377;{finalPrice.toFixed(2)}</button>
+      <button className="add-to-cart-btn" onClick={() => addCart({ _id, option: "nrml" })}>Add to Cart - &#8377;{offerPrice.toFixed(2)}</button>
+      <button className="use-points-btn" onClick={() => addCart({ _id, option: "pts" })}>Use Points - &#8377;{finalPrice.toFixed(2)}</button>
     </div>
   );
 }
