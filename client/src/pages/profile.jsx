@@ -12,16 +12,29 @@ export default function Profile() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-  fetch("http://localhost:5000/profile", {
-    method: "GET",
-    credentials: "include",
-  })
-      .then((res) => res.json())
+    fetch("http://localhost:5000/profile", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.message || "Unknown error");
+        }
+        return res.json();
+      })
       .then((data) => setUser(data))
-      .catch((err) => console.error("Error fetching profile data:", err));
+      .catch((err) => {
+        console.error("Error fetching profile data:", err);
+        setUser(null); // or maybe show an error message
+      });
   }, []);
-    if (!user) {
-    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading profile...</div>;
+
+  if (!user) {
+    return <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h4>Please Login/Register to see your Profile</h4>
+      <a href="/login">Login here</a>
+      </div>;
   }
 
   return (

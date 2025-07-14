@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
   contactNumber: { type: String, required: true },
   password: { type: String, required: true },
   address: { type: String, required: true },
-  type: { type: String, enum: ["household", "restaurant", "organisation"], required: true },
+  type: { type: String, enum: ["household", "restaurant", "organisation", "community member"], required: true },
   points: { type: Number, default: 0 },
   totalDonations: { type: Number, default: 0 },
   impactLevel:{type:String},

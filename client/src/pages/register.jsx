@@ -112,6 +112,7 @@ function Register() {
               <option value="restaurant">Restaurant</option>
               <option value="organization">Organization</option>
               <option value="household">Household</option>
+              <option value="household">Community Member</option>
             </select>
           </div>
 

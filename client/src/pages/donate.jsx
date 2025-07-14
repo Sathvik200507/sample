@@ -50,7 +50,7 @@ export default function Donate() {
         // Optionally clear the form:
         // setForm({ ...initialState });
       } else {
-        alert("Donation failed");
+        alert(result.message);
       }
     } catch (err) {
       console.error(err);

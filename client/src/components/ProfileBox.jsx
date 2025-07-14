@@ -11,7 +11,7 @@ export default function ProfileBox({ user }) {
           className="profile-image"
         />
         <button className="edit-button">
-          <span><i class="fa-solid fa-pen"></i></span>
+          <span><i className="fa-solid fa-pen"></i></span>
         </button>
       </div>
       <h2>{user.fullName}</h2>

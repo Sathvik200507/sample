@@ -45,7 +45,7 @@ export default function Inform() {
         // Optionally clear the form:
         // setForm({ ...initialState });
       } else {
-        alert("inform failed");
+        alert(result.message);
       }
     } catch (err) {
       console.error(err);

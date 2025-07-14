@@ -8,6 +8,29 @@ const app = express(); //storing express in app and creating our application
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 
+
+// 👇 Place this line FIRST — BEFORE express.json and any routes
+app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
+  const sig = req.headers["stripe-signature"];
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    console.error("⚠️  Webhook error:", err.message);
+    return res.sendStatus(400);
+  }
+
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    console.log("✅ Payment completed:", session.id);
+    // TODO: update DB, mark order paid if you store it
+  }
+
+  res.status(200).json({ received: true });
+});
+
        
 app.use(express.json({ limit: '50mb' })); // for JSON
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
@@ -16,7 +39,7 @@ app.use('/uploads', express.static('public/uploads'));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // change to a strong secret and store in .env
+    secret: "hello12", // change to a strong secret and store in .env
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -52,6 +75,7 @@ app.use(express.static(path.join(__dirname, '../client/dist'))); // Serve static
 // async function main(){
 //   await mongoose.connect("mongodb://localhost:27017/replato"); //connection string "mongodb://localhost:27017/DB_NAME"
 // }
+app.use("/api", require("./payment/stripe"));     // prefix all payment routes with /api
 
 
 //Cloud DB connections
@@ -64,8 +88,9 @@ mongoose.connect(process.env.MONGO_URI)
 // use seed.js to export data to cloud
 const { User } = require("./models/user");
 const { Donate } = require("./models/donate"); 
-const {Inform} =require("./models/inform");
-
+const { Inform } =require("./models/inform");
+const Product =require("./models/products");
+const Cart=require("./models/cart");
 
 //Routes
 //Landing Page
@@ -92,11 +117,11 @@ app.post("/login",async(req,res)=>{
 //Registration
 
 app.post("/register",async(req,res)=>{
-  // console.log(req.body);
-  // const {info}=req.body;
-  // if(info.password!==info.confirmPassword){
-  //   return res.json({success:false,msg:"pwd"});
-  // }
+  console.log(req.body);
+  const {info}=req.body;
+  if(info.password!==info.confirmPassword){
+    return res.json({success:false,msg:"pwd"});
+  }
   let user=await User.findOne({userName:info.userName});
   if(user){
     return res.json({success:false,msg:"user"});
@@ -117,12 +142,12 @@ app.post("/register",async(req,res)=>{
 
 //Profile page
 app.get("/profile", async (req, res) => {
-  //   if (!req.session.userId) {
-  //   return res.status(401).json({ 
-  //     success: false,
-  //     message: "Login to view your profile" 
-  //   });
-  // }
+    if (!req.session.userId) {
+    return res.status(401).json({ 
+      success: false,
+      message: "Login to view your profile" 
+    });
+  }
   try {
     const data = await User.findById(req.session.userId);
     res.json(data);
@@ -136,12 +161,12 @@ app.get("/profile", async (req, res) => {
 // donation
 // server.js (excerpt)
 app.post("/donate", async (req, res) => {
-  //   if (!req.session.userId) {
-  //   return res.status(401).json({ 
-  //     success: false,
-  //     message: "Login to Donate" 
-  //   });
-  // }
+    if (!req.session.userId) {
+    return res.status(401).json({ 
+      success: false,
+      message: "Login to Donate" 
+    });
+  }
   try {
     // req.body.info already matches the schema 1-to-1
     const doc = await Donate.create(req.body.info);
@@ -153,12 +178,12 @@ app.post("/donate", async (req, res) => {
 });
 
 app.post("/inform",async(req,res)=>{
-  //   if (!req.session.userId) {
-  //   return res.status(401).json({ 
-  //     success: false,
-  //     message: "Login to Inform" 
-  //   });
-  // }
+    if (!req.session.userId) {
+    return res.status(401).json({ 
+      success: false,
+      message: "Login to Inform" 
+    });
+  }
   try{
     const doc = await Inform.create(req.body.info);
      res.json({ success: true, msg: "Inform saved!", id: doc._id });
@@ -180,6 +205,53 @@ app.get("/logout", (req, res) => {
 
 
 
+// /shop route
+app.get("/shop", async (req, res) => {
+    if (!req.session.userId) {
+    return res.status(401).json({ 
+      success: false,
+      message: "Login to access the shop" 
+    });
+  }
+  let products = await Product.find({});
+  res.json(products);
+});
 
+// Stripe webhook (before express.json)
+const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+
+app.post("/webhook", express.raw({ type: "application/json" }), async (req, res) => {
+  let event;
+  try {
+    const sig = req.headers["stripe-signature"];
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+  } catch (err) {
+    console.error("⚠️  Webhook error:", err.message);
+    return res.sendStatus(400);
+  }
+
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    try {
+      await Order.findOneAndUpdate({ ref: session.id }, { paid: true }).exec();
+    } catch (err) {
+      console.error("Failed to update order:", err);
+    }
+  }
+
+  res.json({ received: true });
+});
+
+
+//add-to-cart
+app.post("/cart",async(req,res)=>{
+  let {pid,option}=req.body;
+  const newItem=new Cart({pid,option});
+  await newItem.save();
+  const product=await Product.findOne({_id:pid});
+  let title=product.title;
+  let price=(option==="nrml")?product.price:product.finalPrice;
+  return res.json({success:true,title,price});
+});
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));

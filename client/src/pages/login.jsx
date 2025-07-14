@@ -44,6 +44,7 @@ const Login = () => {
 
   return (
     <>
+    <div id="page-container">
     <Navbar btn1="About" btn3="Register"/>
     <div className="login-container">
       <h2>Welcome Back</h2>
@@ -62,6 +63,7 @@ const Login = () => {
       </p>
     </div>
     <div id="footer"><Footer /></div>
+    </div>
     </>
   );
 };
