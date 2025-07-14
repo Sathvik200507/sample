@@ -10,31 +10,51 @@ import '../styles/profile.css';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/profile", {
-      method: "GET",
-      credentials: "include",
+  fetch("http://localhost:5000/profile", {
+    method: "GET",
+    credentials: "include",
+  })
+    .then(async (res) => {
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Unknown error");
+      }
+      return res.json();
     })
-      .then(async (res) => {
-        if (!res.ok) {
-          const err = await res.json();
-          throw new Error(err.message || "Unknown error");
-        }
-        return res.json();
-      })
-      .then((data) => setUser(data))
-      .catch((err) => {
-        console.error("Error fetching profile data:", err);
-        setUser(null); // or maybe show an error message
-      });
-  }, []);
+    .then((data) => setUser(data))
+    .catch((err) => {
+      console.error("Error fetching profile data:", err);
+      setUser(null);
+    })
+    .finally(() => {
+      setLoading(false);  // ✅ This ensures loading state gets turned off
+    });
+}, []);
 
+
+  // Alert for missing photo
+  useEffect(() => {
+    if (user && user.photo === "") {
+      alert("Please upload your profile photo to complete your profile.");
+    }
+  }, [user]);
+
+  //Still loading
+  if (loading) {
+    return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading profile...</div>;
+  }
+
+  //Not logged in
   if (!user) {
-    return <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h4>Please Login/Register to see your Profile</h4>
-      <a href="/login">Login here</a>
-      </div>;
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px" }}>
+        <h4>Please Login/Register to see your Profile</h4>
+        <a href="/login">Login here</a>
+      </div>
+    );
   }
 
   return (

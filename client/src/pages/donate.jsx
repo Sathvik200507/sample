@@ -24,39 +24,44 @@ export default function Donate() {
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!form.quantity || !form.freshness) {
-      alert("Quantity and Freshness are required");
-      return;
+  if (!form.quantity || !form.freshness) {
+    alert("Quantity and Freshness are required");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("photo", form.photo);  // actual File object
+  formData.append("data", JSON.stringify({
+    info: {
+      ...form,
+      photo: "",  // This will be set on server using the file
+    },
+  }));
+
+  try {
+    const res = await fetch("http://localhost:5000/donate", {
+      method: "POST",
+      body: formData,
+      credentials: "include"
+    });
+
+    const result = await res.json();
+
+    if (result.success) {
+      alert(result.msg);
+      // Optionally reset form here
+    } else {
+      alert(result.message);
     }
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save donation");
+  }
+};
 
-    try {
-      const res = await fetch("http://localhost:5000/donate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          info: {
-            ...form,           // send everything that’s in state
-          },
-        }),
-      });
-
-      const result = await res.json();   // use the same variable!
-
-      if (result.success) {
-        alert(result.msg);
-        // Optionally clear the form:
-        // setForm({ ...initialState });
-      } else {
-        alert(result.message);
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save donation");
-    }
-  };
 
   return (
     <>
@@ -104,11 +109,12 @@ export default function Donate() {
 
           {/* CUSTOM COMPONENTS ------------------------------------------ */}
           <Photo
-            name="photo"
-            value={form.photo}
-            onChange={handleChange}
-            desc="Photo of Food"
-          /><br /><br />
+              name="photo"
+              desc="Photo of Food"
+              onChange={(e) => setForm((f) => ({ ...f, photo: e.target.value }))}
+            />
+
+            <br /><br />
 
           <Location
             name="location"

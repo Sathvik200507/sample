@@ -2,11 +2,46 @@ require('dotenv').config();
 const express = require('express'); //express is a powerful framework used to build the backend
 const cors = require('cors'); //Cross-Origin Resource Sharing used for communication of two different domains working on different ports
 const mongoose=require("mongoose"); //MongoDB
+const multer = require('multer'); //File Management
 const app = express(); //storing express in app and creating our application
+const path = require("path");
 
 //session management
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+//static files
+app.use(express.static(path.join(__dirname, '../client/dist'))); // Serve static files from the React app
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+app.use(express.json({ limit: '50mb' })); // for JSON
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "public/uploads/donationphotos"));
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9) + ext;
+    cb(null, uniqueName);
+  }
+});
+
+// Setup multer storage for profile photos
+const profileStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/uploads/profilephotos");
+  },
+  filename: function (req, file, cb) {
+    const uniqueName = Date.now() + "-" + Math.round(Math.random() * 1e9) + path.extname(file.originalname);
+    cb(null, uniqueName);
+  },
+});
+
+const uploadProfile = multer({ storage: profileStorage });
+const upload = multer({ storage });
 
 
 // 👇 Place this line FIRST — BEFORE express.json and any routes
@@ -32,14 +67,17 @@ app.post("/webhook", express.raw({ type: "application/json" }), (req, res) => {
 });
 
        
-app.use(express.json({ limit: '50mb' })); // for JSON
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use('/uploads', express.static('public/uploads'));
 
+// ✅ CORS must come FIRST
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
 
+// ✅ Then session middleware
 app.use(
   session({
-    secret: "hello12", // change to a strong secret and store in .env
+    secret: "hello12", // use a secure secret in production
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
@@ -47,21 +85,15 @@ app.use(
       collectionName: "sessions"
     }),
     cookie: {
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
+      maxAge: 1000 * 60 * 60 * 24
     }
   })
 );
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true               
-})); 
+
 
 // app.use(express.json()); //app.use( ) will make use of cors and express.json which takes the json formatted data from the req.body
 
 
-//static files
-const path = require('path');
-app.use(express.static(path.join(__dirname, '../client/dist'))); // Serve static files from the React app
 
 // local db connection
 // main()
@@ -100,22 +132,60 @@ app.get('/', async (req, res) => {
 
 //Login verification
 
-app.post("/login",async(req,res)=>{ 
-  const {userName,password}=req.body;
-  const user=await User.findOne({userName:userName,password:password});
-  if(user){
-      req.session.userId = user._id;
-      console.log("success");
-      res.json({"success":true});
-  }
-  else{
-      console.log("failure");
-      res.json({"success":false});
+// app.post("/login",async(req,res)=>{ 
+//   const {userName,password}=req.body;
+//   const user=await User.findOne({userName:userName,password:password});
+//   if(user){
+//       req.session.userId = user._id;
+//       console.log("success");
+//       res.json({"success":true});
+//   }
+//   else{
+//       console.log("failure");
+//       res.json({"success":false});
+//   }
+// });
+
+app.post("/login", async (req, res) => {
+  const { userName, password, type } = req.body;
+  console.log(type);
+
+  try {
+    const user = await User.findOne({ userName, password });
+
+    if (user) {
+      const isContributorType = ["organisation", "household", "restaurant"].includes(user.type);
+      const isValidType =
+        (type === "contributor" && isContributorType) ||
+        (type === "community member" && user.type === "community member");
+
+      if (isValidType) {
+        req.session.userId = user._id;
+        console.log("Login success");
+        res.json({ success: true });
+      } else {
+        console.log("Incorrect role selected");
+        res.json({
+          success: false,
+          message: "Incorrect role selected. Please choose the correct login type."
+        });
+      }
+    } else {
+      console.log("Invalid credentials");
+      res.json({
+        success: false,
+        message: "Invalid username or password"
+      });
+    }
+  } catch (err) {
+    console.error("Login error:", err);
+    res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
 
-//Registration
 
+
+//Registration
 app.post("/register",async(req,res)=>{
   console.log(req.body);
   const {info}=req.body;
@@ -150,6 +220,7 @@ app.get("/profile", async (req, res) => {
   }
   try {
     const data = await User.findById(req.session.userId);
+    console.log("Photo");
     res.json(data);
   } catch (error) {
     console.error("Error fetching donation data:", error);
@@ -157,25 +228,76 @@ app.get("/profile", async (req, res) => {
   }
 });
 
+app.post("/upload-profile-photo", uploadProfile.single("photo"), async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ success: false, message: "Login first" });
+  }
+
+  try {
+    const photoPath = `/uploads/profilephotos/${req.file.filename}`;
+    const updatedUser = await User.findByIdAndUpdate(
+      req.session.userId,
+      { photo: photoPath },
+      { new: true }
+    );
+    res.json({ success: true, message: "Photo updated!", photo: updatedUser.photo });
+  } catch (err) {
+    console.error("Upload failed:", err);
+    res.status(500).json({ success: false, message: "Upload failed" });
+  }
+});
+
+
 
 // donation
 // server.js (excerpt)
-app.post("/donate", async (req, res) => {
-    if (!req.session.userId) {
-    return res.status(401).json({ 
-      success: false,
-      message: "Login to Donate" 
-    });
+// app.post("/donate", async (req, res) => {
+//     if (!req.session.userId) {
+//     return res.status(401).json({ 
+//       success: false,
+//       message: "Login to Donate" 
+//     });
+//   }
+//   try {
+//     // req.body.info already matches the schema 1-to-1
+//     const doc = await Donate.create(req.body.info);
+//     res.json({ success: true, msg: "Donation saved!", id: doc._id });
+//   } catch (err) {
+//     console.error("Donation failed:", err);
+//     res.status(400).json({ success: false, msg: err.message });
+//   }
+// });
+
+app.post("/donate", upload.single("photo"), async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ success: false, message: "Login to Donate" });
   }
+
   try {
-    // req.body.info already matches the schema 1-to-1
-    const doc = await Donate.create(req.body.info);
-    res.json({ success: true, msg: "Donation saved!", id: doc._id });
+    const { info } = JSON.parse(req.body.data);
+    const user = await User.findById(req.session.userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const photoPath = req.file ? `/uploads/donationphotos/${req.file.filename}` : "";
+
+    const donation = await Donate.create({
+      ...info,
+      name: user.name,
+      phone: user.phone,
+      email: user.email,
+      photo: photoPath,
+    });
+
+    res.json({ success: true, msg: "Donation saved!", id: donation._id });
   } catch (err) {
     console.error("Donation failed:", err);
     res.status(400).json({ success: false, msg: err.message });
   }
 });
+
+
 
 app.post("/inform",async(req,res)=>{
     if (!req.session.userId) {
@@ -192,17 +314,6 @@ app.post("/inform",async(req,res)=>{
     res.status(400).json({ success: false, msg: err.message });
   }
 });
-
-app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      return res.status(500).json({ success: false, message: "Logout failed" });
-    }
-    res.clearCookie("connect.sid");
-    res.json({ success: true }); // ✅ Send just a success message
-  });
-});
-
 
 
 // /shop route
@@ -253,5 +364,38 @@ app.post("/cart",async(req,res)=>{
   let price=(option==="nrml")?product.price:product.finalPrice;
   return res.json({success:true,title,price});
 });
+
+// Get all reports
+app.get("/reports", async (req, res) => {
+  try {
+    const reports = await Donate.find().sort({ createdAt: -1 });
+    res.json(reports);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch reports" });
+  }
+});
+
+// Accept a report
+app.post("/reports/:id/accept", async (req, res) => {
+  try {
+    const report = await Donate.findByIdAndUpdate(req.params.id, { status: "Accepted" }, { new: true });
+    res.json(report);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to accept report" });
+  }
+});
+
+
+//logout
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ success: false, message: "Logout failed" });
+    }
+    res.clearCookie("connect.sid");
+    res.json({ success: true }); // ✅ Send just a success message
+  });
+});
+
 
 app.listen(5000, () => console.log('Server running on http://localhost:5000'));

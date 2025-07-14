@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { FaUpload } from 'react-icons/fa';
 import '../styles/photo.css';
 
-export default function Photo({ name, value, desc, color, onChange }) {
+export default function Photo({ name, desc, color, onChange }) {
   const fileInputRef = useRef();
   const [uploadedFile, setUploadedFile] = useState(null);
 
@@ -14,12 +14,7 @@ export default function Photo({ name, value, desc, color, onChange }) {
     const file = event.target.files[0];
     if (file) {
       setUploadedFile(file.name);
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        onChange({ target: { name, value: reader.result } }); // send base64 to parent
-      };
-      reader.readAsDataURL(file);
+      onChange({ target: { name, value: file } }); // pass actual file object
     }
   };
 

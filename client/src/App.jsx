@@ -11,6 +11,7 @@ import Payment from './pages/payment';
 import Profile from './pages/profile';
 import PaymentSuccess from './pages/PaymentSuccess';
 import PaymentCancel from './pages/PaymentCancel';
+import Volunteer from './pages/volunteer';
 function App() {
   return (
     <>
@@ -29,6 +30,7 @@ function App() {
             <Route path="/profile" element={<Profile/>}/>    
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/payment-cancel" element={<PaymentCancel />} />
+            <Route path="/volunteer" element={<Volunteer/>}/>
           </Routes>
         </BrowserRouter>
     </>

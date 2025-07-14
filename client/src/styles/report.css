@@ -1,0 +1,71 @@
+.report-wrapper {
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.report-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 320px;
+  padding: 1rem;
+}
+
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.report-header h3 {
+  margin: 0;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.status.pending {
+  background-color: #e0e7ff;
+  color: #3730a3;
+}
+
+.status.accepted {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.report-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 12px 0;
+}
+
+.report-info p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.accept-btn {
+  width: 100%;
+  background-color: #3b82f6;
+  color: white;
+  padding: 10px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.accept-btn:hover {
+  background-color: #2563eb;
+}

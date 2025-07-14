@@ -1,8 +1,22 @@
+#page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 15px;
+}
+
 .login-container {
   background: #fff;
   padding: 40px 30px;
   max-width: 420px;
-  margin: 60px auto;
+  width: 100%;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -25,7 +39,7 @@
   gap: 18px;
 }
 
-.login-form input {
+.login-form input, .login-form select {
   width: 100%;
   padding: 12px 10px;
   border: 1px solid #dcdcdc;
@@ -34,7 +48,7 @@
   transition: border 0.3s;
 }
 
-.login-form input:focus {
+.login-form input:focus, .login-form select:focus {
   border-color: #00a651;
   outline: none;
 }
@@ -77,7 +91,3 @@ label {
 .signup-link a:hover {
   text-decoration: underline;
 }
-
-/* #footer {
-  margin-top: 30px;
-} */
