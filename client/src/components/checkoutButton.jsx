@@ -1,5 +1,6 @@
 // ✅ 1. CheckoutButton component (client/src/components/CheckoutButton.jsx)
 import { loadStripe } from '@stripe/stripe-js';
+import '../styles/CartSummary.css';
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default function CheckoutButton({ cartItems, userId, children }) {
@@ -13,5 +14,5 @@ export default function CheckoutButton({ cartItems, userId, children }) {
     window.location.href = url;
   };
 
-  return <button className="pay-btn" onClick={handleClick}>{children}</button>;
+  return <button className="checkout-btn" onClick={handleClick}>{children}</button>;
 }

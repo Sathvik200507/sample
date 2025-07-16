@@ -52,7 +52,7 @@ export default function shop(){
         </div>
         <div className="shopItems">
           {products.map((product, index) => (
-            <ProductBox key={index} {...product} />
+            <ProductBox id={product.title} title={product.title} offerPrice={product.offerPrice} finalPrice={product.finalPrice} key={index}  {...product} />
           ))}
         </div>
         <CartSummary />
